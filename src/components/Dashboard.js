@@ -178,7 +178,7 @@ function Dashboard() {
             className="btn btn-danger"
             type="button"
             value="Logout"
-            onClick={() => removeCookie("yoga")}
+            onClick={() => {removeCookie("yoga"); window.location.href = "/";}}
           />
         </div>
       </div>
