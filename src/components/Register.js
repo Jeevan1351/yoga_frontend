@@ -98,8 +98,11 @@ function Register() {
           window.location.href = "/";
         }
       }
-      alert("Registered Failed");
-      return;
+      else
+        {
+          alert("Registered Failed");
+          return;
+       }
     }
     if (emailError === true) {
       alert("Please enter a valid email");
