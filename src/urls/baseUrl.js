@@ -1,3 +1,3 @@
-const baseUrl = 'https://dailylogvj.rocks/yoga';
+const baseUrl = 'https://dailylogvj.rocks/yoga/';
 
 export default baseUrl;
