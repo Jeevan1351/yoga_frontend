@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from "react";
 import baseUrl from "../urls/baseUrl";
 import { useCookies } from "react-cookie";
-import { Audio, BallTriangle } from "react-loader-spinner";
+import { BallTriangle } from "react-loader-spinner";
 
 function Dashboard() {
+  var d = new Date();
   const [cookies, setCookie, removeCookie] = useCookies(["yoga"]);
   const [data, setData] = useState({ name: "", email: "" });
   const [slot, setSlot] = useState([]);
-  const [date, setDate] = useState({ year: 2022, month: 12 });
+  const [date, setDate] = useState({ year: d.getFullYear(), month: d.getMonth() });
   const [payment, setPayment] = useState({ status: "pending", amount: 500 });
   const [history, setHistory] = useState([]);
-  const [nextSlot, setNextSlot] = useState({ year: 2023, month: 1, slot: 1 });
+  const [nextSlot, setNextSlot] = useState({ year: 2023, month: 2, slot: 1 });
 
   useEffect(() => {
-    var d = new Date();
-    setDate({ year: d.getFullYear(), month: d.getMonth() + 1 });
+    setDate({ year: d.getFullYear(), month: d.getMonth() });
     console.log(date);
     var y = date.year;
     var m = date.month;
-    if (date.month === 12) {
+    if (date.month === 11) {
       y = date.year + 1;
       m = 1;
     } else {
       m = date.month + 1;
     }
+    console.log(y, m);
     const setUp = async () => {
       console.log(cookies.yoga);
       if (!cookies.yoga) {
@@ -130,7 +131,7 @@ function Dashboard() {
         amount: 500,
       }),
     });
-    await delay(5000);
+    await delay(1000);
     paymentData = await paymentData.json();
     setPayment({
       status: paymentData.data.status,
@@ -138,11 +139,11 @@ function Dashboard() {
     });
   };
 
-  const updateSlot = async (slot) => {
+  const updateNextSlot = async (slot) => {
     console.log("update slot called");
     var y = date.year;
     var m = date.month;
-    if (date.month === 12) {
+    if (date.month === 11) {
       y = date.year + 1;
       m = 1;
     } else {
@@ -164,7 +165,7 @@ function Dashboard() {
     });
     slotData = await slotData.json();
     console.log(slotData);
-    setSlot(slotData.data.slot);
+    setNextSlot(slotData.data.slot);
   };
 
   return (
@@ -244,7 +245,7 @@ function Dashboard() {
               className="form-select"
               name="Slot"
               value={nextSlot.slot}
-              onChange={(e) => updateSlot(e.target.value)}
+              onChange={(e) => updateNextSlot(e.target.value)}
             >
               <option value="1">6:00 AM - 7:00 AM</option>
               <option value="2">7:00 AM - 8:00 AM</option>

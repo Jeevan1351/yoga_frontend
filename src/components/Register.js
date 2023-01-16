@@ -2,6 +2,7 @@ import { useState } from "react";
 import baseUrl from "../urls/baseUrl";
 
 function Register() {
+  const d = new Date();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -11,7 +12,7 @@ function Register() {
   const [slot, setSlot] = useState(1);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
-  const [date, setDate] = useState({ year: 2022, month: 12 });
+  const [date, setDate] = useState({ year: d.getFullYear(), month:  d.getMonth() });
 
 
 
@@ -81,7 +82,6 @@ function Register() {
       var res = await data.json();
       console.log(res);
       if (res.status === 200) {
-        var d = new Date();
         var y = d.getFullYear();
         var m = d.getMonth() + 1;
         setDate({ year: y, month: m });
